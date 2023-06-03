@@ -5,7 +5,7 @@ const { main } = require('./main')
 
 const app = express()
 
-app.use(express.static('public'))
+app.use(express.static('views/public'))
 app.set('view engine', 'ejs')
 
 app.get("/",async (req, res) => {
@@ -28,7 +28,7 @@ app.get("/",async (req, res) => {
             authUrl: getUrl()
         })
     }
-})
+});
 
 app.listen(3000, () => {
     console.log(`Server is up and rujning`);
