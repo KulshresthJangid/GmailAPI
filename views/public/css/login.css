@@ -16,7 +16,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     cursor: url('/images/pngwing.png'), auto;
-    cursor: url('/images/pngwing.png'), default;
 }
 
 .container {
