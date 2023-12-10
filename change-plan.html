@@ -1,0 +1,241 @@
+<#include "/layouts/planMain.ftl" />
+<#if plans?has_content>
+<@standardPage title="Plans">
+   <div class="zc-table-outer zc-tableplan">
+      <div class="simplebtn-mobile">
+         <a href="javascript:void(0);" class="zc-btn zc-btn-primary tempopenclick">View Template</a>
+      </div>
+      <div class="zc-table-box">
+         <div class="zc-tablewrap <#if isLivePlans>billContentCenter</#if>">
+            <div class="zc-plan-outer">
+               <ul class="hovertable stickyplanbar">
+                  <li class="zc-fixlist">
+                     <div class="zc-tabplan-box">
+                        <div class="peruser">
+                           <div class="zc-paruse">
+                              <div class="zc-fix-owner"> MOST POPULAR</div>
+                              <h4></h4>
+                           </div>
+                           <div class="zc-custom-month">
+                              <div class="zc-anunually-box">
+                                 <a href="javascript:void(0);" class="zc-btn anually-btn">Anually</a>
+                                 <a href="javascript:void(0);" class=" zc-btn monthly-btn active">Monthly</a>
+                              </div>
+                              <div class="zc-save"><img src="../images/btn-vector.svg" alt="btn"></div>
+                           </div>
+                        </div>
+                        <div class="zc-tdnamedata ">
+                           <#if planVariables?has_content>
+                              <#list planVariables as variable>
+                                 <div class="tdname <#if variable?is_even_item>active</#if>" data-rel="row-1">
+                                    <div class="zc-retitle">
+                                       <h4>${variable.name}</h4>
+                                       <div class="zigtooltiphover">
+                                          <a href="javascript:void(0)" class="zc-hover-icon">
+                                             <img src="../images/info-icon.svg" alt="i.svg" class="mCS_img_loaded">
+                                          </a>
+                                          <#if variable.variableInfo?has_content><span
+                                                class="zig-tootip">${variable.variableInfo}</span></#if>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </#list>
+                           </#if>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+               <ul class="hovertable horizental-scrolldd oute-planba <#if !isLivePlans>droppable-area1</#if>">
+                  <#list plans?sort_by("sequence") as plan>
+                     <#if plan.recommendedPlan?? && plan.recommendedPlan>
+                        <li class="draggable-item ui-sortable-handle plans-data"
+                           data-plan-monthly-amount="${plan.recurAmount}" data-plan-id="${plan.id}"
+                           data-discount-value-yearly="${plan.discountValueYearly?c}"
+                           <#if plan.discountType??>
+                           data-discount-type="${plan.discountType}"
+                           </#if>
+                           data-recur-annual-amount="${plan.recurAnnualAmount?c}"
+                           data-recur-annual-discount-amount="${plan.recurAnnualDiscountAmount}"
+                           data-default-recur-freq="${plan.recurFreq.value}">
+                           <div class="<#if !isLivePlans>zc-tabplan-box</#if>">
+                              <div class="peruser-active">
+                                 <div class="peruser">
+                                    <div class="zc-paruse">
+                                       <div class="zc-fix-owner">${plan.recommendDisplayText}</div>
+                                       <h4>
+                                          ${plan.name}
+                                          <span class="arrowright clickrightarrow">
+                                             <i class="arrowiconplan ">
+                                                <svg width="8" height="5" viewBox="0 0 8 5" fill="none"
+                                                   xmlns="http://www.w3.org/2000/svg">
+                                                   <path
+                                                      d="M0.799998 1.84797e-05L4.69578e-07 0.833348L3.99999 5L8 0.83333L7.2 -6.73114e-08L3.99999 3.33334L0.799998 1.84797e-05Z"
+                                                      fill="#0F1425"></path>
+                                                </svg>
+                                             </i>
+                                          </span>
+                                       </h4>
+                                    </div>
+                                    <div class="zc-custom-month">
+                                    <div class="zc-customeimgwrap" style="height: 64px; width: 64px;">
+                                     <#if plan.planIconUrl?has_content><img src="${plan.planIconUrl}" style="height: 100%; width: 100%;"></#if>
+                                    </div>
+                                      <div class="zc-customewrapdiv">
+                                        <div class="annual-cancel-price" data-recur-currency="${plan.recurCurrencySymbol}">
+                                       </div>
+                                       <h3><b>${plan.recurCurrencySymbol} <span class="plan-amount"
+                                                data-recurAmount="${plan.recurAmount?long?c}"
+                                                style="font-weight: 600; font-size: 3rem;">${plan.recurAmount}</span></b>
+                                                <span class="recur-freq">/${plan.recurFreq.value}</span>
+                                       </h3>
+                                       <p class="zc-user">Per user (average)</p>
+                                       <p class="zc-custom-text">${plan.description}</p>
+                                      </div>
+                                       <div class="zc-empty-group">
+                                          <#if plan.ctaOpenLinkInNewWindow==true><a href="${plan.ctaLinkOnButton}"
+                                                class="zc-empty-btn" target="_blank">${plan.ctaButtonText}</a>
+                                             <#else><a href="${plan.ctaLinkOnButton}"
+                                                   class="zc-empty-btn">${plan.ctaButtonText}</a>
+                                          </#if>
+                                          <a href="javascript:void(0);" class="seedetailsplan">
+                                             See Details
+                                             <span class="arrowdtls">
+                                                <svg width="6" height="9" viewBox="0 0 6 9" fill="none"
+                                                   xmlns="http://www.w3.org/2000/svg">
+                                                   <path
+                                                      d="M0.500019 7.7L1.33335 8.5L5.5 4.50001L1.33333 0.5L0.5 1.3L3.83334 4.50001L0.500019 7.7Z"
+                                                      fill="#0F1425" />
+                                                </svg>
+                                             </span>
+                                          </a>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="zc-tdnamedata">
+                                    <#list plan.variableDisplayValue as variables>
+                                       <div class="tdname <#if variables?is_even_item>active</#if>" data-rel="row-1">
+                                          <div class="zc-retitle">
+                                             <h4>User limit per site</h4>
+                                             <div class="zigtooltiphover">
+                                                <a href="javascript:void(0)" class="zc-hover-icon">
+                                                   <img src="../images/info-icon.svg" alt="i.svg"
+                                                      class="mCS_img_loaded">
+                                                </a>
+                                                <span class="zig-tootip">info</span>
+                                             </div>
+                                          </div>
+                                          <#if variables??>
+                                             <div class="valuesplan">
+                                                <#if variables=="true"><img src="../images/Pricing-Value.svg" alt="zc">
+                                                   <#elseif variables=="false"><img src="../images/cross-icon.svg"
+                                                         alt="cross">
+                                                      <#else>${variables}
+                                                </#if>
+                                             </div>
+                                             <#else>
+                                                <div class="valuesplan">-</div>
+                                          </#if>
+                                       </div>
+                                    </#list>
+                                 </div>
+                              </div>
+                           </div>
+                        </li>
+                        <#else>
+                           <li class="draggable-item plans-data" data-plan-monthly-amount="${plan.recurAmount}"
+                              data-plan-id="${plan.id}" data-discount-value-yearly="${plan.discountValueYearly?c}"
+                              data-discount-type= "<#if plan.discountType??> ${plan.discountType} </#if>"
+                              data-recur-annual-amount="${plan.recurAnnualAmount?c}"
+                              data-recur-annual-discount-amount="${plan.recurAnnualDiscountAmount}"
+                              data-default-recur-freq="<#if plan.recurFreq??> ${plan.recurFreq.value} </#if>">
+                              <div class="<#if !isLivePlans>zc-tabplan-box</#if>">
+                                 <div class="peruser">
+                                    <div class="zc-paruse">
+                                       <div class="zc-fix-owner">${plan.recommendDisplayText}</div>
+                                       <h4>
+                                          ${plan.name}
+                                          <span class="arrowright clickrightarrow">
+                                             <i class="arrowiconplan ">
+                                                <svg width="8" height="5" viewBox="0 0 8 5" fill="none"
+                                                   xmlns="http://www.w3.org/2000/svg">
+                                                   <path
+                                                      d="M0.799998 1.84797e-05L4.69578e-07 0.833348L3.99999 5L8 0.83333L7.2 -6.73114e-08L3.99999 3.33334L0.799998 1.84797e-05Z"
+                                                      fill="#0F1425" />
+                                                </svg>
+                                             </i>
+                                          </span>
+                                       </h4>
+                                    </div>
+                                    <div class="zc-custom-month">
+                                     <div class="zc-customeimgwrap" style="height: 64px; width: 64px;">
+                                     <#if plan.planIconUrl?has_content><img src="${plan.planIconUrl}" style="height: 100%; width: 100%;"></#if>
+                                    </div>
+                                      <div class="zc-customewrapdiv">
+                                       <div class="annual-cancel-price" data-recur-currency="${plan.recurCurrencySymbol}">
+                                       </div>
+                                       <h3><b>${plan.recurCurrencySymbol} <span class="plan-amount"
+                                                data-recurAmount="${plan.recurAmount?long?c}"
+                                                style="font-weight: 600; font-size: 3rem;">${plan.recurAmount}</span></b>
+                                          <span class="recur-freq"><#if plan.recurFreq??> /${plan.recurFreq.value} </#if></span>
+                                       </h3>
+                                       <p class="zc-user">Per user (average)</p>
+                                       <p class="zc-custom-text">${plan.description}</p>
+                                      </div>
+                                       <div class="zc-empty-group">
+                                          <#if plan.ctaOpenLinkInNewWindow==true><a href="${plan.ctaLinkOnButton}"
+                                                class="zc-empty-btn" target="_blank">${plan.ctaButtonText}</a>
+                                             <#else><a href="${plan.ctaLinkOnButton}"
+                                                   class="zc-empty-btn">${plan.ctaButtonText}</a>
+                                          </#if>
+                                          <a href="javascript:void(0);" class="seedetailsplan">
+                                             See Details
+                                             <span class="arrowdtls">
+                                                <svg width="6" height="9" viewBox="0 0 6 9" fill="none"
+                                                   xmlns="http://www.w3.org/2000/svg">
+                                                   <path
+                                                      d="M0.500019 7.7L1.33335 8.5L5.5 4.50001L1.33333 0.5L0.5 1.3L3.83334 4.50001L0.500019 7.7Z"
+                                                      fill="#0F1425" />
+                                                </svg>
+                                             </span>
+                                          </a>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="zc-tdnamedata">
+                                    <#list plan.variableDisplayValue as variables>
+                                       <div class="tdname <#if variables?is_even_item>active</#if>" data-rel="row-1">
+                                          <div class="zc-retitle">
+                                             <h4>User limit per site</h4>
+                                             <div class="zigtooltiphover">
+                                                <a href="javascript:void(0)" class="zc-hover-icon">
+                                                   <img src="../images/info-icon.svg" alt="i.svg"
+                                                      class="mCS_img_loaded">
+                                                </a>
+                                                <span class="zig-tootip">info</span>
+                                             </div>
+                                          </div>
+                                          <#if variables??>
+                                             <div class="valuesplan">
+                                                <#if variables=="true"><img src="../images/Pricing-Value.svg" alt="zc">
+                                                   <#elseif variables=="false"><img src="../images/cross-icon.svg"
+                                                         alt="cross">
+                                                      <#else>${variables}
+                                                </#if>
+                                             </div>
+                                             <#else>
+                                                <div class="valuesplan">-</div>
+                                          </#if>
+                                       </div>
+                                    </#list>
+                                 </div>
+                              </div>
+                           </li>
+                     </#if>
+                  </#list>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+</@standardPage>
+</#if>
